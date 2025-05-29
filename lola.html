@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pasaporte del Show</title>
+  <style>
+    html, body {
+      font-family: Arial, sans-serif;
+      background: #fff;
+      margin: 0;
+      padding: 0;
+    }
+    .form-wrapper {
+      position: relative;
+      width: 595px;
+      min-height: 700px;
+      margin: 20px auto;
+      background: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 50px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+    .form-title {
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin: 30px 0 5px;
+      font-size: 12px;
+    }
+    input, textarea {
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid #000;
+      padding: 4px;
+      font-size: 14px;
+      background: transparent;
+      outline: none;
+    }
+    .input-line {
+      margin-bottom: 15px;
+    }
+    .photo-box {
+      position: absolute;
+      top: 40px;
+      right: 30px;
+      width: 200px;
+      height: 250px;
+      transform: rotate(-15deg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      z-index: 2;
+      border: 1px solid #000;
+      background: #fff;
+    }
+    .photo-box img {
+      width: 100%;
+      height: auto;
+    }
+    #photo-upload {
+      position: absolute;
+      top: 40px;
+      right: 30px;
+      transform: rotate(-15deg);
+      z-index: 3;
+      opacity: 0;
+      width: 200px;
+      height: 250px;
+      cursor: pointer;
+    }
+    .photo-label {
+      position: absolute;
+      top: 40px;
+      right: 30px;
+      transform: rotate(-15deg);
+      width: 200px;
+      height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      text-align: center;
+      pointer-events: none;
+      color: #888;
+      z-index: 1;
+    }
+    .hidden {
+      display: none;
+    }
+    .ritual-line {
+      border-bottom: 1px solid black;
+      margin-bottom: 10px;
+    }
+    .download-btn {
+      display: block;
+      margin: 30px auto 50px;
+      padding: 10px 20px;
+      font-size: 14px;
+      background-color: #000;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-wrapper" id="passport">
+    <div class="form-title">FOTO PASAPORTE</div>
+
+    <div class="photo-box" id="photo-box">
+      <img id="photo-preview" style="display:none">
+    </div>
+    <input type="file" id="photo-upload" accept="image/*" onchange="previewPhoto(event)">
+    <div class="photo-label" id="photo-label">Haz clic aquí para subir tu foto</div>
+
+    <label for="nombre">NOMBRE</label>
+    <input type="text" id="nombre" name="nombre" class="input-line">
+
+    <label for="ciudad">CIUDAD</label>
+    <input type="text" id="ciudad" name="ciudad" class="input-line">
+
+    <label for="cancion">CANCIÓN QUE TE DEFINA</label>
+    <input type="text" id="cancion" name="cancion" class="input-line">
+
+    <label>RITUAL ANTES DE QUE EMPIECE EL SHOW</label>
+    <div class="ritual-line"><input type="text" style="width:100%; border:none; outline:none; background:transparent;"></div>
+    <div class="ritual-line"><input type="text" style="width:100%; border:none; outline:none; background:transparent;"></div>
+    <div class="ritual-line"><input type="text" style="width:100%; border:none; outline:none; background:transparent;"></div>
+  </div>
+
+  <button class="download-btn" onclick="downloadAsImage()">Descargar pasaporte</button>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script>
+    function previewPhoto(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = document.getElementById('photo-preview');
+        const label = document.getElementById('photo-label');
+        const box = document.getElementById('photo-box');
+        img.src = e.target.result;
+        img.style.display = 'block';
+        label.classList.add('hidden');
+        box.style.border = 'none';
+      }
+      reader.readAsDataURL(file);
+    }
+
+    function downloadAsImage() {
+      const element = document.getElementById('passport');
+      html2canvas(element).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'pasaporte.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      });
+    }
+  </script>
+</body>
+</html>
