@@ -1,37 +1,43 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pasaporte del Show</title>
   <style>
     html, body {
       font-family: Arial, sans-serif;
-      background: #fff;
+      background: #e6e6e6; /* soft background outside the paper */
       margin: 0;
-      padding: 0;
+      padding: 40px 0;
     }
+
     .form-wrapper {
       position: relative;
-      width: 595px;
-      min-height: 700px;
-      margin: 20px auto;
-      background: white;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      padding: 50px;
-      box-sizing: border-box;
+      width: 794px;
+      height: 1123px;
+      margin: 0 auto;
+      background: url('img/plantilla.jpg') no-repeat center center;
+      background-size: cover;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
       font-size: 14px;
+      padding: 150px; /* adds internal padding to the whole content */
+      box-sizing: border-box;
     }
+
     .form-title {
       font-weight: bold;
-      margin-bottom: 20px;
+      margin-bottom: 100px;
+      margin-top: 40px;
     }
+
     label {
       font-weight: bold;
       display: block;
       margin: 30px 0 5px;
       font-size: 12px;
     }
+
     input, textarea {
       width: 100%;
       border: none;
@@ -41,13 +47,15 @@
       background: transparent;
       outline: none;
     }
+
     .input-line {
       margin-bottom: 15px;
     }
+
     .photo-box {
       position: absolute;
-      top: 40px;
-      right: 30px;
+      top: 180px;
+      right: 60px;
       width: 200px;
       height: 250px;
       transform: rotate(-15deg);
@@ -59,14 +67,16 @@
       border: 1px solid #000;
       background: #fff;
     }
+
     .photo-box img {
       width: 100%;
       height: auto;
     }
+
     #photo-upload {
       position: absolute;
-      top: 40px;
-      right: 30px;
+      top: 180px;
+      right: 60px;
       transform: rotate(-15deg);
       z-index: 3;
       opacity: 0;
@@ -74,10 +84,11 @@
       height: 250px;
       cursor: pointer;
     }
+
     .photo-label {
       position: absolute;
-      top: 40px;
-      right: 30px;
+      top: 180px;
+      right: 60px;
       transform: rotate(-15deg);
       width: 200px;
       height: 250px;
@@ -90,16 +101,36 @@
       color: #888;
       z-index: 1;
     }
+
+    .photo-clip {
+      position: absolute;
+      top: 160px;
+      right: 50px;
+      width: 230px;
+      height: auto;
+      z-index: 4;
+      pointer-events: none;
+    }
+
     .hidden {
       display: none;
     }
+
     .ritual-line {
       border-bottom: 1px solid black;
       margin-bottom: 10px;
     }
+
+    .ritual-line input {
+      width: 100%;
+      border: none;
+      outline: none;
+      background: transparent;
+    }
+
     .download-btn {
       display: block;
-      margin: 30px auto 50px;
+      margin: 30px auto 60px;
       padding: 10px 20px;
       font-size: 14px;
       background-color: #000;
@@ -118,6 +149,7 @@
     </div>
     <input type="file" id="photo-upload" accept="image/*" onchange="previewPhoto(event)">
     <div class="photo-label" id="photo-label">Haz clic aquí para subir tu foto</div>
+    <img src="img/clip.png" alt="clip" class="photo-clip">
 
     <label for="nombre">NOMBRE</label>
     <input type="text" id="nombre" name="nombre" class="input-line">
@@ -125,13 +157,13 @@
     <label for="ciudad">CIUDAD</label>
     <input type="text" id="ciudad" name="ciudad" class="input-line">
 
-    <label for="cancion">CANCIÓN QUE TE DEFINA</label>
+    <label for="cancion">CANCIÓN QUE MÁS QUIERES GRITAR EN LOS ESTADIOS</label>
     <input type="text" id="cancion" name="cancion" class="input-line">
 
     <label>RITUAL ANTES DE QUE EMPIECE EL SHOW</label>
-    <div class="ritual-line"><input type="text" style="width:100%; border:none; outline:none; background:transparent;"></div>
-    <div class="ritual-line"><input type="text" style="width:100%; border:none; outline:none; background:transparent;"></div>
-    <div class="ritual-line"><input type="text" style="width:100%; border:none; outline:none; background:transparent;"></div>
+    <div class="ritual-line"><input type="text"></div>
+    <div class="ritual-line"><input type="text"></div>
+    <div class="ritual-line"><input type="text"></div>
   </div>
 
   <button class="download-btn" onclick="downloadAsImage()">Descargar pasaporte</button>
